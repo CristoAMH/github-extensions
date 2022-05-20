@@ -1,19 +1,19 @@
 import { useState, useEffect } from 'react';
 import './App.css';
+import Form from './components/Form';
+import Summary from './components/Summary';
 import { getFileRecount, getShaFromBranch, getTreeFromSha } from './utils';
 
 function App() {
   const [branch, setBranch] = useState('main');
   const [repo, setRepo] = useState('');
   const [tree, setTree] = useState([]);
-  const [fileRecount, setFileRecount] = useState({});
+  const [fileRecount, setFileRecount] = useState();
 
   useEffect(() => {
     if (tree.length) {
-      let recount = {};
       const getFinalRecount = async function () {
-        const finalRecount = await getFileRecount({ tree, recount });
-        console.log(recount);
+        const finalRecount = await getFileRecount({ tree });
         console.log(finalRecount);
         if (finalRecount) {
           setFileRecount(finalRecount);
@@ -45,30 +45,18 @@ function App() {
   };
 
   return (
-    <div className='App'>
-      <div className='form'>
-        <label htmlFor='change-repo-input'>Change Repo URL</label>
-        <input id='change-repo-input' value={repo} onChange={changeRepo} />
-        <span>{repo}</span>
-        {/* El de las branches probablemente tenga que ser un desplegable con las branches seleccionadas */}
-        <label htmlFor='change-branch-input'>Change branch</label>
-        <input
-          id='change-branch-input'
-          value={branch}
-          onChange={changeBranch}
+    <div className='flex max-w-2xl mx-auto h-screen md:items-center md:justify-center md:p-2xl'>
+      <div className='flex flex-col items-center p-8 bg-slate-200 border border-gray-700'>
+        <Form
+          repo={repo}
+          changeRepo={changeRepo}
+          branch={branch}
+          changeBranch={changeBranch}
+          getTree={getTree}
         />
-        <span>{branch}</span>
-        <button onClick={getTree}>Get tree</button>
+        <Summary recount={fileRecount} />
+        {/* {fileRecount ? JSON.stringify(fileRecount) : 'Esperando'} */}
       </div>
-      <div>
-        <h2>Tree</h2>
-        <div>
-          {tree.map((file) => (
-            <div>{file.path}</div>
-          ))}
-        </div>
-      </div>
-      {fileRecount ? JSON.stringify(fileRecount) : 'Esperando'}
     </div>
   );
 }

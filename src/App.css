@@ -4,10 +4,25 @@
   padding: 2rem;
 }
 
-.form {
-  display: flex;
-  flex-direction: column;
+. {
 }
 
 .tree {
+}
+
+.button {
+  display: inline-block;
+  border-radius: 3px;
+  padding: 7px 12px;
+  border: 1px solid red;
+  background-image: linear-gradient(#eee, #ddd);
+}
+
+.button--state-loading {
+}
+
+.button--state-success {
+}
+
+.button--state-error {
 }
