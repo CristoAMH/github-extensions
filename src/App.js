@@ -76,7 +76,7 @@ function App() {
   };
 
   return (
-    <div className='flex max-w-2xl mx-auto h-screen md:items-center md:justify-center md:p-2xl'>
+    <div className='flex max-w-4xl mx-auto h-screen md:items-center md:justify-center md:p-2xl'>
       <div className='flex flex-col items-center p-8 bg-slate-200 border border-gray-700'>
         <Form
           gitRepoUrl={gitRepoUrl}

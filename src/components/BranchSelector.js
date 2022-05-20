@@ -14,7 +14,7 @@ const BranchSelector = ({
     <div className='flex flex-col justify-end md:pr-4'>
       <div className='relative'>
         <button
-          className='text-white bg-slate-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium  text-sm px-4 py-2.5 text-center inline-flex items-center max-w-[10rem]'
+          className='text-white bg-slate-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium  text-sm px-4 py-2.5 text-center flex items-center w-full md:max-w-[10rem]'
           type='button'
           onClick={toggleMenu}
         >
