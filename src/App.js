@@ -5,7 +5,8 @@ import Summary from './components/Summary';
 import { getFileRecount, getShaFromBranch, getTreeFromSha } from './utils';
 
 function App() {
-  const [branch, setBranch] = useState('main');
+  const [currentBranch, setCurrentBranch] = useState('main');
+  const [allBranches, setAllBranches] = useState([]);
   const [repo, setRepo] = useState('');
   const [tree, setTree] = useState([]);
   const [fileRecount, setFileRecount] = useState();
@@ -29,14 +30,14 @@ function App() {
   };
 
   const changeBranch = ({ target: { value } }) => {
-    setBranch(value);
+    setCurrentBranch(value);
   };
 
   const getTree = async () => {
     // Deberíamos poner un loadear
     let sha;
-    if (branch) {
-      sha = await getShaFromBranch(branch);
+    if (currentBranch) {
+      sha = await getShaFromBranch(currentBranch);
     }
     if (sha) {
       const tree = await getTreeFromSha(sha);
@@ -50,7 +51,7 @@ function App() {
         <Form
           repo={repo}
           changeRepo={changeRepo}
-          branch={branch}
+          branch={currentBranch}
           changeBranch={changeBranch}
           getTree={getTree}
         />

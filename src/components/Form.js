@@ -1,4 +1,5 @@
 import React from 'react';
+import BranchSelector from './BranchSelector';
 import './form.css';
 
 const Form = ({ repo, changeRepo, branch, changeBranch, getTree }) => {
@@ -16,8 +17,9 @@ const Form = ({ repo, changeRepo, branch, changeBranch, getTree }) => {
           required
         />
       </div>
+      <BranchSelector />
       {/* El de las branches probablemente tenga que ser un desplegable con las branches seleccionadas */}
-      <div className='flex flex-col md:pr-4'>
+      {/* <div className='flex flex-col md:pr-4'>
         <label htmlFor='change-branch-input'>Change branch</label>
         <input
           id='change-branch-input'
@@ -28,7 +30,7 @@ const Form = ({ repo, changeRepo, branch, changeBranch, getTree }) => {
           placeholder='Search'
           required
         />
-      </div>
+      </div>*/}
       <button
         className='bg-white hover:bg-gray-100 text-gray-800 font-semibold py-2.5 mt-2 md:mt-0 px-4 border border-gray-400 rounded shadow'
         onClick={getTree}

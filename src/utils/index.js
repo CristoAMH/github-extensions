@@ -61,3 +61,18 @@ export const getFileRecount = async ({ url, tree }) => {
   await iterateTree({ url, tree });
   return recount;
 };
+
+export const getBranchesFromRepo = async ({
+  owner = 'argoproj',
+  repo = 'argo-site',
+}) => {
+  const url = `https://api.github.com/repos/${owner}/${repo}/branches `;
+  try {
+    const branches = await fetch(url);
+    const branchesFormatted = await branches.json();
+
+    return branchesFormatted;
+  } catch (e) {
+    console.log(e);
+  }
+};
