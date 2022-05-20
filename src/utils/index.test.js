@@ -1,4 +1,4 @@
-const { getFileRecount } = require('./index');
+import { getFileRecount, isValidGitUrl } from './index';
 
 const firstTree = [
   {
@@ -100,6 +100,25 @@ describe('getFinalRecount', () => {
       })
     );
     const res = await getFileRecount({ tree: firstTree });
-    expect(res).toBe({ md: 2 });
+    expect(res).toMatchObject({
+      LICENSE: 1,
+      gitignore: 1,
+      js: 3,
+      json: 2,
+      md: 3,
+      prettierrc: 1,
+      tsx: 2,
+    });
   });
+});
+
+it('should match the refex and return the user and the repo name', async () => {
+  const user = 'argoproj';
+  const repo = 'argo-site';
+  const url = `https://github.com/${user}/${repo}`;
+
+  const match = isValidGitUrl(url);
+  expect(match[0]).toBe(url);
+  expect(match.groups.gitUser).toBe(user);
+  expect(match.groups.gitRepo).toBe(repo);
 });

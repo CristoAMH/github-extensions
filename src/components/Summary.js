@@ -22,7 +22,7 @@ const Summary = ({ recount = mockedRecount }) => {
       <h2>Tree</h2>
       <div className='grid grid-cols-3 gap-2'>
         {Object.keys(recount).map((file) => (
-          <SummaryCell extension={file} value={recount[file]} />
+          <SummaryCell key={file} extension={file} value={recount[file]} />
         ))}
       </div>
     </div>

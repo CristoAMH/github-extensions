@@ -35,11 +35,8 @@
       "last 1 safari version"
     ]
   },
-  "jest": {
-    "testEnvironment": "jest-environment-node",
-    "transform": {}
-  },
   "devDependencies": {
-    "tailwindcss": "^3.0.24"
+    "tailwindcss": "^3.0.24",
+    "ts-jest": "^28.0.2"
   }
 }

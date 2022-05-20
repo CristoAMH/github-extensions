@@ -62,10 +62,10 @@ export const getFileRecount = async ({ url, tree }) => {
   return recount;
 };
 
-export const getBranchesFromRepo = async ({
+export const getBranchesFromRepo = async (
   owner = 'argoproj',
-  repo = 'argo-site',
-}) => {
+  repo = 'argo-site'
+) => {
   const url = `https://api.github.com/repos/${owner}/${repo}/branches `;
   try {
     const branches = await fetch(url);
@@ -75,4 +75,10 @@ export const getBranchesFromRepo = async ({
   } catch (e) {
     console.log(e);
   }
+};
+
+export const isValidGitUrl = (url) => {
+  var validGithubUrlRegex =
+    /(?:git@|https:\/\/)github.com[:/](?<gitUser>.+?(?=\/))\/(?<gitRepo>.+?(?=\/|$))/;
+  return url.match(validGithubUrlRegex);
 };

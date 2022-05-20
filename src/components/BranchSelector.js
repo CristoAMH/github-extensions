@@ -3,8 +3,9 @@ import React, { useState } from 'react';
 const BranchSelector = ({
   repo,
   changeRepo,
-  branch,
-  changeBranch,
+  currentBranch,
+  setCurrentBranch,
+  allBranches,
   getTree,
 }) => {
   const [isOpen, setIsOpen] = useState(false);
@@ -13,13 +14,13 @@ const BranchSelector = ({
     <div className='flex flex-col justify-end md:pr-4'>
       <div className='relative'>
         <button
-          className='text-white bg-slate-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium  text-sm px-4 py-2.5 text-center inline-flex items-center'
+          className='text-white bg-slate-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium  text-sm px-4 py-2.5 text-center inline-flex items-center max-w-[10rem]'
           type='button'
           onClick={toggleMenu}
         >
-          Branch
+          <span className='truncate'>{currentBranch?.name || 'Branch'}</span>
           <svg
-            class='w-4 h-4 ml-2'
+            className='w-4 h-4 ml-2'
             fill='none'
             stroke='currentColor'
             viewBox='0 0 24 24'
@@ -39,10 +40,24 @@ const BranchSelector = ({
           }  bg-white text-base z-50 list-none divide-y divide-gray-100 rounded shadow absolute min-w-max`}
           id='dropdown'
         >
-          <li className='p-2 w-full'>Hola esto es una branch algo larga</li>
-          <li className='p-2 w-full'>Hola esto es una branch algo larga</li>
-          <li className='p-2 w-full'>Hola esto es una branch algo larga</li>
-          <li className='p-2 w-full'>Hola esto es una branch algo larga</li>
+          {!!allBranches?.length &&
+            allBranches.map((branch) => (
+              <li
+                key={branch.name}
+                className={`p-2 w-full ${
+                  branch.name === currentBranch.name
+                    ? 'bg-blue-800 text-white'
+                    : ''
+                }`}
+              >
+                <button
+                  className='w-full'
+                  onClick={() => setCurrentBranch(branch)}
+                >
+                  {branch.name}
+                </button>
+              </li>
+            ))}
         </ul>
       </div>
     </div>
