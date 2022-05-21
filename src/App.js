@@ -5,7 +5,6 @@ import Summary from './components/Summary';
 import {
   getBranchesFromRepo,
   getFileRecount,
-  getShaFromBranch,
   getTreeFromSha,
   isValidGitUrl,
 } from './utils';
@@ -67,7 +66,7 @@ function App() {
     // Deberíamos poner un loadear
     let sha;
     if (currentBranch) {
-      sha = await getShaFromBranch(currentBranch);
+      sha = currentBranch.commit?.sha;
     }
     if (sha) {
       const tree = await getTreeFromSha(sha);
