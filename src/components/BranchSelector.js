@@ -1,4 +1,6 @@
 import React, { useState } from 'react';
+import BranchOption from './BranchOption';
+import PropTypes from 'prop-types';
 
 const BranchSelector = ({ currentBranch, setCurrentBranch, allBranches }) => {
   const [isOpen, setIsOpen] = useState(false);
@@ -39,28 +41,25 @@ const BranchSelector = ({ currentBranch, setCurrentBranch, allBranches }) => {
         >
           {!!allBranches?.length &&
             allBranches.map((branch) => (
-              <li
+              <BranchOption
                 key={branch.name}
-                className={`p-2 w-full ${
-                  branch.name === currentBranch.name
-                    ? 'bg-blue-800 text-white'
-                    : ''
-                }`}
-                role='option'
-                aria-selected={branch.name === currentBranch.name}
-              >
-                <button
-                  className='w-full'
-                  onClick={() => setCurrentBranch(branch)}
-                >
-                  {branch.name}
-                </button>
-              </li>
+                isSelected={branch.name === currentBranch.name}
+                setCurrentBranch={setCurrentBranch}
+                branch={branch}
+              />
             ))}
         </ul>
       </div>
     </div>
   );
+};
+
+BranchOption.propTypes = {
+  currentBranch: PropTypes.object.shape({ name: PropTypes.string.isRequired }),
+  setCurrentBranch: PropTypes.func.isRequired,
+  allBranches: PropTypes.arrayOf(
+    PropTypes.object.shape({ name: PropTypes.string.isRequired })
+  ),
 };
 
 export default BranchSelector;

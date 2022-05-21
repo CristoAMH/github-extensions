@@ -1,4 +1,6 @@
 import React from 'react';
+import PropTypes from 'prop-types';
+
 import SummaryCell from './SummaryCell';
 
 const Summary = ({ recount = {} }) => {
@@ -12,6 +14,10 @@ const Summary = ({ recount = {} }) => {
       </div>
     </div>
   );
+};
+
+Summary.propTypes = {
+  recount: PropTypes.object(PropTypes.objectOf(PropTypes.number)),
 };
 
 export default Summary;

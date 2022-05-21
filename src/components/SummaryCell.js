@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 const SummaryCell = ({ extension, value }) => {
   return (
@@ -7,6 +8,11 @@ const SummaryCell = ({ extension, value }) => {
       <div className='text-4xl'>{value}</div>
     </div>
   );
+};
+
+SummaryCell.propTypes = {
+  extension: PropTypes.string.isRequired,
+  value: PropTypes.number.isRequired,
 };
 
 export default SummaryCell;

@@ -1,5 +1,6 @@
 import React from 'react';
 import BranchSelector from './BranchSelector';
+import PropTypes from 'prop-types';
 
 const Form = ({
   gitRepoUrl,
@@ -43,6 +44,19 @@ const Form = ({
       </button>
     </div>
   );
+};
+
+Form.propTypes = {
+  gitRepoUrl: PropTypes.string.isRequired,
+  setGitRepoUrl: PropTypes.func.isRequired,
+  currentBranch: PropTypes.object.shape({ name: PropTypes.string.isRequired }),
+  setCurrentBranch: PropTypes.func.isRequired,
+  allBranches: PropTypes.arrayOf(
+    PropTypes.object.shape({ name: PropTypes.string.isRequired })
+  ),
+  getTree: PropTypes.func.isRequired,
+  userName: PropTypes.string.isRequired,
+  repoName: PropTypes.string.isRequired,
 };
 
 export default Form;

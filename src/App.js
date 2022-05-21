@@ -1,11 +1,12 @@
 import { useState } from 'react';
-import './App.css';
 import Form from './components/Form';
 import Summary from './components/Summary';
 import useGetBranchesFromUrl from './hooks/useGetBranchesFromUrl';
 import useGetFinalRecount from './hooks/useGetFinalRecount';
 import useGetUserAndRepoFromUrl from './hooks/useGetUserAndRepoFromUrl';
 import { getRepoTree } from './utils';
+
+import './App.css';
 
 function App() {
   const [currentBranch, setCurrentBranch] = useState('');
