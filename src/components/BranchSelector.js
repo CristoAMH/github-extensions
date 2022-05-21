@@ -55,10 +55,10 @@ const BranchSelector = ({ currentBranch, setCurrentBranch, allBranches }) => {
 };
 
 BranchOption.propTypes = {
-  currentBranch: PropTypes.object.shape({ name: PropTypes.string.isRequired }),
+  currentBranch: PropTypes.shape({ name: PropTypes.string.isRequired }),
   setCurrentBranch: PropTypes.func.isRequired,
   allBranches: PropTypes.arrayOf(
-    PropTypes.object.shape({ name: PropTypes.string.isRequired })
+    PropTypes.shape({ name: PropTypes.string.isRequired })
   ),
 };
 

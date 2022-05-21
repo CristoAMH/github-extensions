@@ -9,7 +9,7 @@ import { getRepoTree } from './utils';
 import './App.css';
 
 function App() {
-  const [currentBranch, setCurrentBranch] = useState('');
+  const [currentBranch, setCurrentBranch] = useState({});
   const [gitRepoUrl, setGitRepoUrl] = useState('');
   const [tree, setTree] = useState([]);
 

@@ -42,6 +42,7 @@ export const getFileRecount = async ({ url, tree }) => {
   };
 
   await iterateTree({ url, tree });
+  console.log('entro');
   return recount;
 };
 

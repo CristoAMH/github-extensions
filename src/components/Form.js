@@ -49,10 +49,10 @@ const Form = ({
 Form.propTypes = {
   gitRepoUrl: PropTypes.string.isRequired,
   setGitRepoUrl: PropTypes.func.isRequired,
-  currentBranch: PropTypes.object.shape({ name: PropTypes.string.isRequired }),
+  currentBranch: PropTypes.shape({ name: PropTypes.string }),
   setCurrentBranch: PropTypes.func.isRequired,
   allBranches: PropTypes.arrayOf(
-    PropTypes.object.shape({ name: PropTypes.string.isRequired })
+    PropTypes.shape({ name: PropTypes.string.isRequired })
   ),
   getTree: PropTypes.func.isRequired,
   userName: PropTypes.string.isRequired,

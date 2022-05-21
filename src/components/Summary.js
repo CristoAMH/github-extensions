@@ -17,7 +17,7 @@ const Summary = ({ recount = {} }) => {
 };
 
 Summary.propTypes = {
-  recount: PropTypes.object(PropTypes.objectOf(PropTypes.number)),
+  recount: PropTypes.shape(PropTypes.objectOf(PropTypes.number)),
 };
 
 export default Summary;

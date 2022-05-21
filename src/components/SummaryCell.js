@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { memo } from 'react';
 import PropTypes from 'prop-types';
 
 const SummaryCell = ({ extension, value }) => {
@@ -15,4 +15,4 @@ SummaryCell.propTypes = {
   value: PropTypes.number.isRequired,
 };
 
-export default SummaryCell;
+export default memo(SummaryCell);
