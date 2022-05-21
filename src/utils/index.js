@@ -1,11 +1,11 @@
-export const getRepoTree = async ({ user, repo, sha }) => {
+export const getRepoTree = async ({ userName, repoName, sha }) => {
   // Los archivos tienen un tipo blob si es un directorio es tipo tree
   // Lost tipo tree tienen un url para acceder a su tree y así consecutivamente
 
   // tendremos el try catch aquí y estaría bien tener un manejador de errores
   try {
     const getTree = await fetch(
-      `https://api.github.com/repos/${user}/${repo}/git/trees/${sha}`
+      `https://api.github.com/repos/${userName}/${repoName}/git/trees/${sha}`
     );
     const getTreeJson = await getTree.json();
 
@@ -45,7 +45,7 @@ export const getFileRecount = async ({ url, tree }) => {
   return recount;
 };
 
-export const getBranchesFromRepo = async (
+export const getBranchesFromUrl = async (
   owner = 'argoproj',
   repo = 'argo-site'
 ) => {

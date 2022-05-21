@@ -1,82 +1,6 @@
 import { getFileRecount, isValidGitUrl } from './index';
+import { firstTree, secondTree, thirdTree, fourthTree } from './test-utils';
 
-const firstTree = [
-  {
-    path: '.github',
-    type: 'tree',
-    url: 'URL-SECOND-TREE',
-  },
-  {
-    path: '.gitignore',
-    type: 'blob',
-  },
-  {
-    path: '.prettierrc',
-    type: 'blob',
-  },
-  {
-    path: 'LICENSE',
-    type: 'blob',
-  },
-  {
-    path: 'README.md',
-    type: 'blob',
-  },
-  {
-    path: 'gatsby-config.js',
-    type: 'blob',
-  },
-  {
-    path: 'gatsby-node.js',
-    type: 'blob',
-  },
-  {
-    path: 'package-lock.json',
-    type: 'blob',
-  },
-  {
-    path: 'package.json',
-    type: 'blob',
-  },
-  {
-    path: 'postcss.config.js',
-    type: 'blob',
-  },
-  {
-    path: 'src',
-    type: 'tree',
-    url: 'URL-THIRD-TREE',
-  },
-];
-
-const secondTree = [
-  {
-    path: '.github-flow',
-    type: 'tree',
-    url: 'URL-FOURTH-TREE',
-  },
-  {
-    path: 'github.md',
-    type: 'blob',
-  },
-];
-const thirdTree = [
-  {
-    path: 'component.tsx',
-    type: 'blob',
-  },
-];
-
-const fourthTree = [
-  {
-    path: 'superComponent.tsx',
-    type: 'blob',
-  },
-  {
-    path: 'anotherMd.md',
-    type: 'blob',
-  },
-];
 global.fetch = jest.fn();
 
 describe('getFinalRecount', () => {
@@ -112,13 +36,15 @@ describe('getFinalRecount', () => {
   });
 });
 
-it('should match the refex and return the user and the repo name', async () => {
-  const user = 'argoproj';
-  const repo = 'argo-site';
-  const url = `https://github.com/${user}/${repo}`;
+describe('isValidGitUrl', () => {
+  it('should match the refex and return the user and the repo name', async () => {
+    const user = 'argoproj';
+    const repo = 'argo-site';
+    const url = `https://github.com/${user}/${repo}`;
 
-  const match = isValidGitUrl(url);
-  expect(match[0]).toBe(url);
-  expect(match.groups.gitUser).toBe(user);
-  expect(match.groups.gitRepo).toBe(repo);
+    const match = isValidGitUrl(url);
+    expect(match[0]).toBe(url);
+    expect(match.groups.gitUser).toBe(user);
+    expect(match.groups.gitRepo).toBe(repo);
+  });
 });

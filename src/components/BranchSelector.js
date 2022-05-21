@@ -1,13 +1,6 @@
 import React, { useState } from 'react';
 
-const BranchSelector = ({
-  repo,
-  changeRepo,
-  currentBranch,
-  setCurrentBranch,
-  allBranches,
-  getTree,
-}) => {
+const BranchSelector = ({ currentBranch, setCurrentBranch, allBranches }) => {
   const [isOpen, setIsOpen] = useState(false);
   const toggleMenu = () => setIsOpen(!isOpen);
   return (
@@ -17,6 +10,9 @@ const BranchSelector = ({
           className='text-white bg-slate-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium  text-sm px-4 py-2.5 text-center flex items-center w-full md:max-w-[10rem] rounded-b-md md:rounded-bl-none  md:rounded-r-md '
           type='button'
           onClick={toggleMenu}
+          role='combobox'
+          aria-controls='branches-dropdown'
+          aria-expanded={isOpen}
         >
           <span className='truncate'>{currentBranch?.name || 'Branch'}</span>
           <svg
@@ -38,7 +34,8 @@ const BranchSelector = ({
           className={`${
             isOpen ? '' : 'hidden'
           }  bg-white text-base z-50 list-none divide-y divide-gray-100 rounded shadow absolute min-w-max`}
-          id='dropdown'
+          id='branches-dropdown'
+          role='listbox'
         >
           {!!allBranches?.length &&
             allBranches.map((branch) => (
@@ -49,6 +46,8 @@ const BranchSelector = ({
                     ? 'bg-blue-800 text-white'
                     : ''
                 }`}
+                role='option'
+                aria-selected={branch.name === currentBranch.name}
               >
                 <button
                   className='w-full'

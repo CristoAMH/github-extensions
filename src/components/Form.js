@@ -1,17 +1,20 @@
-import { isDisabled } from '@testing-library/user-event/dist/utils';
 import React from 'react';
 import BranchSelector from './BranchSelector';
 
 const Form = ({
   gitRepoUrl,
-  changeRepoUrl,
+  setGitRepoUrl,
   currentBranch,
   setCurrentBranch,
   allBranches,
   getTree,
-  user,
-  repo,
+  userName,
+  repoName,
 }) => {
+  const changeRepoUrl = ({ target: { value } }) => {
+    setGitRepoUrl(value);
+  };
+
   return (
     <div className='flex flex-col md:flex-row pb-20 w-full '>
       <div className='flex flex-col w-full '>
@@ -34,7 +37,7 @@ const Form = ({
       <button
         className='bg-zinklar-pale hover:bg-gray-100 text-gray-800  mt-2 md:mt-0 px-5 py-4 border  border-gray-400  rounded-md shadow hover:shadow-md text-xs h-fit self-end disabled:bg-gray-300 disabled:opacity-40 ml-auto'
         onClick={getTree}
-        disabled={!user || !repo || !currentBranch}
+        disabled={!userName || !repoName || !currentBranch}
       >
         GET TREE
       </button>
