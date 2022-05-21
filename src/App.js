@@ -5,7 +5,7 @@ import Summary from './components/Summary';
 import {
   getBranchesFromRepo,
   getFileRecount,
-  getTreeFromSha,
+  getRepoTree,
   isValidGitUrl,
 } from './utils';
 
@@ -19,7 +19,7 @@ function App() {
   const [fileRecount, setFileRecount] = useState();
 
   useEffect(() => {
-    if (tree.length) {
+    if (tree?.length) {
       const getFinalRecount = async function () {
         const finalRecount = await getFileRecount({ tree });
         console.log(finalRecount);
@@ -69,15 +69,15 @@ function App() {
       sha = currentBranch.commit?.sha;
     }
     if (sha) {
-      const tree = await getTreeFromSha(sha);
+      const tree = await getRepoTree({ user, repo, sha });
       setTree(tree);
     }
   };
 
   return (
     <div className='bg'>
-      <div className='flex max-w-4xl mx-auto h-screen md:items-center md:justify-center md:p-2xl font-roboto'>
-        <div className='flex flex-col items-center p-8 bg-slate-200 border border-gray-700'>
+      <div className='flex max-w-4xl mx-auto min-h-screen h-full items-center justify-center md:p-2xl font-roboto'>
+        <div className='flex flex-col items-center p-8 bg-slate-200 border rounded-md border-gray-700 h-full'>
           <Form
             gitRepoUrl={gitRepoUrl}
             changeRepoUrl={changeRepoUrl}

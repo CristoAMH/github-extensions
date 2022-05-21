@@ -1,11 +1,11 @@
-export const getTreeFromSha = async (sha) => {
+export const getRepoTree = async ({ user, repo, sha }) => {
   // Los archivos tienen un tipo blob si es un directorio es tipo tree
   // Lost tipo tree tienen un url para acceder a su tree y así consecutivamente
 
   // tendremos el try catch aquí y estaría bien tener un manejador de errores
   try {
     const getTree = await fetch(
-      `https://api.github.com/repos/argoproj/argo-site/git/trees/${sha}`
+      `https://api.github.com/repos/${user}/${repo}/git/trees/${sha}`
     );
     const getTreeJson = await getTree.json();
 
