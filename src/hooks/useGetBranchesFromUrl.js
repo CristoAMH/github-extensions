@@ -7,7 +7,6 @@ const useGetBranchesFromUrl = (userName, repoName, dispatch) => {
     if (repoName) {
       const getBranches = async function () {
         const branches = await getBranchesFromUrl(userName, repoName, dispatch);
-        console.log(branches);
         if (branches) {
           dispatch(setIsFetchingBranchesSuccess(branches));
         }

@@ -3,7 +3,7 @@ import React, { useState, memo, useEffect } from 'react';
 import SummaryCell from './SummaryCell';
 import { useTree } from '../context/tree-context';
 import { setRecountSortedBy } from '../context/actions';
-import { sortRecount } from '../utils';
+import useSortRecount from '../hooks/useSortRecount';
 import { AZ, ZA } from '../utils/constants';
 
 const Summary = () => {
@@ -17,6 +17,8 @@ const Summary = () => {
     setFilterString(value);
   };
 
+  useSortRecount(recountSortedBy, recount, finalRecount, setFinalRecount);
+
   useEffect(() => {
     const newRecount = Object.keys(recount)
       .filter((key) => key.includes(filterString))
@@ -29,13 +31,6 @@ const Summary = () => {
       );
     setFinalRecount(newRecount);
   }, [filterString, recount]);
-
-  useEffect(() => {
-    if (recountSortedBy) {
-      const newRecount = sortRecount(finalRecount, recountSortedBy);
-      setFinalRecount(newRecount);
-    }
-  }, [recountSortedBy, recount]);
 
   const setSortedBy = (sort) => {
     treeDispatch(setRecountSortedBy(sort));
