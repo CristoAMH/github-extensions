@@ -4,12 +4,15 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { BranchProvider } from './context/branch-context';
+import { TreeProvider } from './context/tree-context';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
     <BranchProvider>
-      <App />
+      <TreeProvider>
+        <App />
+      </TreeProvider>
     </BranchProvider>
   </React.StrictMode>
 );

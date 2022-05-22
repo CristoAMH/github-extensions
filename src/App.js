@@ -8,27 +8,23 @@ import { getRepoTree } from './utils';
 
 import './App.css';
 import { useBranch } from './context/branch-context';
+import { useTree } from './context/tree-context';
 
 function App() {
   const { state: branchState, dispatch: branchDispatch } = useBranch();
+  const { state: treeState, dispatch: treeDispatch } = useTree();
   const { currentBranch } = branchState;
 
   const [gitRepoUrl, setGitRepoUrl] = useState('');
-  const [tree, setTree] = useState([]);
-
   const [userName, repoName] = useGetUserAndRepoFromUrl(gitRepoUrl);
+
   useGetBranchesFromUrl(userName, repoName, branchDispatch);
-  const [filesRecount] = useGetFinalRecount(tree);
+  useGetFinalRecount(treeState.tree, treeDispatch);
 
   const getTree = async () => {
-    // Deberíamos poner un loadear
-    let sha;
-    if (currentBranch) {
-      sha = currentBranch.commit?.sha;
-    }
+    let sha = currentBranch?.commit?.sha;
     if (sha) {
-      const tree = await getRepoTree({ userName, repoName, sha });
-      setTree(tree);
+      await getRepoTree({ userName, repoName, sha, dispatch: treeDispatch });
     }
   };
 
@@ -43,7 +39,7 @@ function App() {
             userName={userName}
             repoName={repoName}
           />
-          <Summary recount={filesRecount} />
+          <Summary />
         </div>
       </div>
     </div>

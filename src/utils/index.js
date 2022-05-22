@@ -1,22 +1,27 @@
 import {
   setIsFetchingBranchesError,
   setIsFetchingBranchesPending,
+  setIsFetchingTreePending,
+  setIsFetchingTreeSuccess,
+  setIsFetchingTreeError,
 } from '../context/actions';
 
-export const getRepoTree = async ({ userName, repoName, sha }) => {
+export const getRepoTree = async ({ userName, repoName, sha, dispatch }) => {
   // Los archivos tienen un tipo blob si es un directorio es tipo tree
   // Lost tipo tree tienen un url para acceder a su tree y así consecutivamente
 
-  // tendremos el try catch aquí y estaría bien tener un manejador de errores
+  console.log('ENTRO');
   try {
+    dispatch(setIsFetchingTreePending());
     const getTree = await fetch(
       `https://api.github.com/repos/${userName}/${repoName}/git/trees/${sha}`
     );
     const getTreeJson = await getTree.json();
 
-    return getTreeJson.tree;
+    console.log(getTreeJson);
+    dispatch(setIsFetchingTreeSuccess(getTreeJson.tree));
   } catch (e) {
-    console.log(e);
+    dispatch(setIsFetchingTreeError(e));
   }
 };
 
@@ -47,7 +52,6 @@ export const getFileRecount = async ({ url, tree }) => {
   };
 
   await iterateTree({ url, tree });
-  console.log('entro');
   return recount;
 };
 
@@ -56,7 +60,6 @@ export const getBranchesFromUrl = async (
   repo = 'argo-site',
   dispatch
 ) => {
-  console.log('ENTRO');
   const url = `https://api.github.com/repos/${owner}/${repo}/branches `;
   try {
     dispatch(setIsFetchingBranchesPending());

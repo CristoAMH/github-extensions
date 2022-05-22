@@ -1,9 +1,11 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+import React, { memo } from 'react';
 
 import SummaryCell from './SummaryCell';
+import { useTree } from '../context/tree-context';
 
-const Summary = ({ recount = {} }) => {
+const Summary = () => {
+  const { state: treeState } = useTree();
+  const { recount } = treeState;
   return (
     <div className='w-full pt-10 '>
       <h2>Tree</h2>
@@ -16,8 +18,4 @@ const Summary = ({ recount = {} }) => {
   );
 };
 
-Summary.propTypes = {
-  recount: PropTypes.shape(PropTypes.objectOf(PropTypes.number)),
-};
-
-export default Summary;
+export default memo(Summary);

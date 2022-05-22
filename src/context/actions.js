@@ -6,6 +6,7 @@ export const BRANCHES_FETCH_ERROR = 'BRANCHES_FETCH_ERROR';
 export const TREE_FETCH_PENDING = 'TREE_FETCH_PENDING';
 export const TREE_FETCH_SUCCESS = 'TREE_FETCH_SUCCESS';
 export const TREE_FETCH_ERROR = 'TREE_FETCH_ERROR';
+export const SET_RECOUNT = 'SET_RECOUNT';
 
 export const setCurrentBranch = (currentBranch) => ({
   type: SET_CURRENT_BRANCH,
@@ -24,4 +25,22 @@ export const setIsFetchingBranchesSuccess = (branches) => ({
 export const setIsFetchingBranchesError = (error) => ({
   type: BRANCHES_FETCH_ERROR,
   data: error,
+});
+
+export const setIsFetchingTreePending = () => ({
+  type: TREE_FETCH_PENDING,
+});
+
+export const setIsFetchingTreeSuccess = (tree) => ({
+  type: TREE_FETCH_SUCCESS,
+  data: tree,
+});
+
+export const setIsFetchingTreeError = () => ({
+  type: TREE_FETCH_ERROR,
+});
+
+export const setRecount = (recount) => ({
+  type: SET_RECOUNT,
+  data: recount,
 });

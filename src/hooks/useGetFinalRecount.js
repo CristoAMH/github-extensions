@@ -1,24 +1,21 @@
-import { useState, useEffect } from 'react';
+import { useEffect } from 'react';
+import { setRecount } from '../context/actions';
 import { getFileRecount } from '../utils';
 
-const useGetFinalRecount = (tree) => {
-  const [filesRecount, setFilesRecount] = useState();
-
+const useGetFinalRecount = (tree, dispatch) => {
   useEffect(() => {
     if (tree?.length) {
       const getFinalRecount = async function () {
         const finalRecount = await getFileRecount({ tree });
-        console.log(finalRecount);
+
         if (finalRecount) {
-          setFilesRecount(finalRecount);
+          dispatch(setRecount(finalRecount));
         }
       };
 
       getFinalRecount();
     }
   }, [tree]);
-
-  return [filesRecount];
 };
 
 export default useGetFinalRecount;
