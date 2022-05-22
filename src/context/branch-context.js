@@ -9,6 +9,7 @@ import {
 const defaultBranchState = {
   currentBranch: {},
   allBranches: [],
+  isFetchingBranches: false,
 };
 
 const BranchContext = createContext(defaultBranchState);
