@@ -12,7 +12,7 @@ const defaultBranchState = {
   isFetchingBranches: false,
 };
 
-const BranchContext = createContext(defaultBranchState);
+export const BranchContext = createContext(defaultBranchState);
 
 const branchReducer = (
   state = { currentBranch: {}, allBranches: [] },

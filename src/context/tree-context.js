@@ -12,7 +12,7 @@ const defaultTreeState = {
   recount: {},
 };
 
-const TreeContext = createContext(defaultTreeState);
+export const TreeContext = createContext(defaultTreeState);
 
 const treeReducer = (state = defaultTreeState, action) => {
   switch (action.type) {
