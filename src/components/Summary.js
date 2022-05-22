@@ -5,7 +5,7 @@ import SummaryCell from './SummaryCell';
 
 const Summary = ({ recount = {} }) => {
   return (
-    <div className='w-full'>
+    <div className='w-full pt-10 '>
       <h2>Tree</h2>
       <div className='grid grid-cols-3 md:grid-cols-4 gap-2'>
         {Object.keys(recount).map((file) => (

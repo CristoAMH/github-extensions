@@ -1,8 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-const BranchOption = ({ branch, setCurrentBranch, isSelected }) => {
-  console.log(branch);
+const BranchOption = ({ branch, setBranch, isSelected }) => {
   const { name: branchName } = branch;
   return (
     <li
@@ -10,7 +9,7 @@ const BranchOption = ({ branch, setCurrentBranch, isSelected }) => {
       role='option'
       aria-selected={isSelected}
     >
-      <button className='w-full' onClick={() => setCurrentBranch(branch)}>
+      <button className='w-full' onClick={() => setBranch(branch)}>
         {branchName}
       </button>
     </li>
@@ -19,7 +18,7 @@ const BranchOption = ({ branch, setCurrentBranch, isSelected }) => {
 
 BranchOption.propTypes = {
   branch: PropTypes.shape({ name: PropTypes.string.isRequired }),
-  setCurrentBranch: PropTypes.func.isRequired,
+  setBranch: PropTypes.func.isRequired,
   isSelected: PropTypes.bool.isRequired,
 };
 

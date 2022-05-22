@@ -1,3 +1,8 @@
+import {
+  setIsFetchingBranchesError,
+  setIsFetchingBranchesPending,
+} from '../context/actions';
+
 export const getRepoTree = async ({ userName, repoName, sha }) => {
   // Los archivos tienen un tipo blob si es un directorio es tipo tree
   // Lost tipo tree tienen un url para acceder a su tree y así consecutivamente
@@ -48,15 +53,19 @@ export const getFileRecount = async ({ url, tree }) => {
 
 export const getBranchesFromUrl = async (
   owner = 'argoproj',
-  repo = 'argo-site'
+  repo = 'argo-site',
+  dispatch
 ) => {
+  console.log('ENTRO');
   const url = `https://api.github.com/repos/${owner}/${repo}/branches `;
   try {
+    dispatch(setIsFetchingBranchesPending());
     const branches = await fetch(url);
     const branchesFormatted = await branches.json();
 
     return branchesFormatted;
   } catch (e) {
+    dispatch(setIsFetchingBranchesError());
     console.log(e);
   }
 };

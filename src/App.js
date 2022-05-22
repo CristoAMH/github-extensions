@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import React, { useState, useReducer } from 'react';
 import Form from './components/Form';
 import Summary from './components/Summary';
 import useGetBranchesFromUrl from './hooks/useGetBranchesFromUrl';
@@ -7,14 +7,17 @@ import useGetUserAndRepoFromUrl from './hooks/useGetUserAndRepoFromUrl';
 import { getRepoTree } from './utils';
 
 import './App.css';
+import { useBranch } from './context/branch-context';
 
 function App() {
-  const [currentBranch, setCurrentBranch] = useState({});
+  const { state: branchState, dispatch: branchDispatch } = useBranch();
+  const { currentBranch } = branchState;
+
   const [gitRepoUrl, setGitRepoUrl] = useState('');
   const [tree, setTree] = useState([]);
 
   const [userName, repoName] = useGetUserAndRepoFromUrl(gitRepoUrl);
-  const [allBranches] = useGetBranchesFromUrl(userName, repoName);
+  useGetBranchesFromUrl(userName, repoName, branchDispatch);
   const [filesRecount] = useGetFinalRecount(tree);
 
   const getTree = async () => {
@@ -36,10 +39,7 @@ function App() {
           <Form
             gitRepoUrl={gitRepoUrl}
             setGitRepoUrl={setGitRepoUrl}
-            currentBranch={currentBranch}
-            setCurrentBranch={setCurrentBranch}
             getTree={getTree}
-            allBranches={allBranches}
             userName={userName}
             repoName={repoName}
           />

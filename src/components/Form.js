@@ -1,23 +1,16 @@
 import React from 'react';
 import BranchSelector from './BranchSelector';
 import PropTypes from 'prop-types';
+import { useBranch } from '../context/branch-context';
 
-const Form = ({
-  gitRepoUrl,
-  setGitRepoUrl,
-  currentBranch,
-  setCurrentBranch,
-  allBranches,
-  getTree,
-  userName,
-  repoName,
-}) => {
+const Form = ({ gitRepoUrl, setGitRepoUrl, getTree, userName, repoName }) => {
+  const { state: branchState } = useBranch();
   const changeRepoUrl = ({ target: { value } }) => {
     setGitRepoUrl(value);
   };
 
   return (
-    <div className='flex flex-col md:flex-row pb-20 w-full '>
+    <div className='flex flex-col md:flex-row w-full '>
       <div className='flex flex-col w-full '>
         <label htmlFor='change-repo-input'>Github Repository URL</label>
         <input
@@ -30,15 +23,11 @@ const Form = ({
           required
         />
       </div>
-      <BranchSelector
-        allBranches={allBranches}
-        currentBranch={currentBranch}
-        setCurrentBranch={setCurrentBranch}
-      />
+      <BranchSelector />
       <button
         className='bg-zinklar-pale hover:bg-gray-100 text-gray-800  mt-2 md:mt-0 px-5 py-4 border  border-gray-400  rounded-md shadow hover:shadow-md text-xs h-fit self-end disabled:bg-gray-300 disabled:opacity-40 ml-auto'
         onClick={getTree}
-        disabled={!userName || !repoName || !currentBranch}
+        disabled={!userName || !repoName || !branchState.currentBranch}
       >
         GET TREE
       </button>
@@ -49,11 +38,6 @@ const Form = ({
 Form.propTypes = {
   gitRepoUrl: PropTypes.string.isRequired,
   setGitRepoUrl: PropTypes.func.isRequired,
-  currentBranch: PropTypes.shape({ name: PropTypes.string }),
-  setCurrentBranch: PropTypes.func.isRequired,
-  allBranches: PropTypes.arrayOf(
-    PropTypes.shape({ name: PropTypes.string.isRequired })
-  ),
   getTree: PropTypes.func.isRequired,
   userName: PropTypes.string.isRequired,
   repoName: PropTypes.string.isRequired,

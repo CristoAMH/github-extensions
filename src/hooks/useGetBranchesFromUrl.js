@@ -1,23 +1,22 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useContext } from 'react';
+import { BranchContext } from '../App';
+import { setIsFetchingBranchesSuccess } from '../context/actions';
 import { getBranchesFromUrl } from '../utils';
 
-const useGetBranchesFromUrl = (userName, repoName) => {
-  const [allBranches, setAllBranches] = useState([]);
-
+const useGetBranchesFromUrl = (userName, repoName, dispatch) => {
   useEffect(() => {
     if (repoName) {
       const getBranches = async function () {
-        const branches = await getBranchesFromUrl(userName, repoName);
+        const branches = await getBranchesFromUrl(userName, repoName, dispatch);
         if (branches) {
-          setAllBranches(branches);
+          console.log(branches);
+          dispatch(setIsFetchingBranchesSuccess(branches));
         }
       };
 
       getBranches();
     }
   }, [userName, repoName]);
-
-  return [allBranches];
 };
 
 export default useGetBranchesFromUrl;

@@ -1,10 +1,19 @@
 import React, { useState } from 'react';
 import BranchOption from './BranchOption';
 import PropTypes from 'prop-types';
+import { setCurrentBranch } from '../context/actions';
+import { useBranch } from '../context/branch-context';
 
-const BranchSelector = ({ currentBranch, setCurrentBranch, allBranches }) => {
+const BranchSelector = () => {
+  const { state: branchState, dispatch: branchDispatch } = useBranch();
+  const { currentBranch, allBranches } = branchState;
   const [isOpen, setIsOpen] = useState(false);
   const toggleMenu = () => setIsOpen(!isOpen);
+
+  const setBranch = (branch) => {
+    branchDispatch(setCurrentBranch(branch));
+  };
+
   return (
     <div className='flex flex-col justify-end md:pr-4'>
       <div className='relative'>
@@ -44,7 +53,7 @@ const BranchSelector = ({ currentBranch, setCurrentBranch, allBranches }) => {
               <BranchOption
                 key={branch.name}
                 isSelected={branch.name === currentBranch.name}
-                setCurrentBranch={setCurrentBranch}
+                setBranch={setBranch}
                 branch={branch}
               />
             ))}
