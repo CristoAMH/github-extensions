@@ -9,7 +9,15 @@ import {
 const defaultTreeState = {
   tree: [],
   isFetchingTree: false,
-  recount: {},
+  recount: {
+    yml: 2,
+    luacheckrc: 1,
+    md: 2,
+    txt: 1,
+    lua: 3,
+    vim: 1,
+    toml: 1,
+  },
 };
 
 export const TreeContext = createContext(defaultTreeState);
