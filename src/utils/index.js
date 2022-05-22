@@ -10,7 +10,6 @@ export const getRepoTree = async ({ userName, repoName, sha, dispatch }) => {
   // Los archivos tienen un tipo blob si es un directorio es tipo tree
   // Lost tipo tree tienen un url para acceder a su tree y así consecutivamente
 
-  console.log('ENTRO');
   try {
     dispatch(setIsFetchingTreePending());
     const getTree = await fetch(
@@ -18,7 +17,6 @@ export const getRepoTree = async ({ userName, repoName, sha, dispatch }) => {
     );
     const getTreeJson = await getTree.json();
 
-    console.log(getTreeJson);
     dispatch(setIsFetchingTreeSuccess(getTreeJson.tree));
   } catch (e) {
     dispatch(setIsFetchingTreeError(e));
@@ -69,7 +67,6 @@ export const getBranchesFromUrl = async (
     return branchesFormatted;
   } catch (e) {
     dispatch(setIsFetchingBranchesError());
-    console.log(e);
   }
 };
 

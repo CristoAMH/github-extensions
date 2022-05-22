@@ -3,7 +3,7 @@ import { firstTree, secondTree, thirdTree, fourthTree } from './test-utils';
 
 global.fetch = jest.fn();
 
-describe('getFinalRecount', () => {
+describe('getFileRecount', () => {
   beforeEach(() => {
     fetch.mockClear();
   });

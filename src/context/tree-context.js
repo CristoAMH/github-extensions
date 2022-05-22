@@ -15,7 +15,6 @@ const defaultTreeState = {
 const TreeContext = createContext(defaultTreeState);
 
 const treeReducer = (state = defaultTreeState, action) => {
-  console.log(action);
   switch (action.type) {
     case TREE_FETCH_PENDING:
       return { ...state, isFetchingTree: true };
