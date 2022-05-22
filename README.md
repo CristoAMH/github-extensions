@@ -1,4 +1,4 @@
-# Zinklar Technical Interview
+## Technical Interview
 
 ## Goal
 
