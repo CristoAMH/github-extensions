@@ -16,7 +16,7 @@ As extra points I have put a dropdown of the branches of the repository also the
 
 Some tests have been added and I would have continued refactoring ad infinitum but I think it was a good exercise for now and I really had fun doing it.
 
-Thank you very much for the opportunity Zinklar.
+Thank you very much for the opportunity.
 
 ## Available Scripts
 
