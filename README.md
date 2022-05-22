@@ -1,6 +1,22 @@
-# Getting Started with Create React App
+# Zinklar Technical Interview
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## Goal
+
+The main objective of this technical test is to create an application that will have as input data a Github repository and as output a list of extensions of the files in the repository. In addition, it must be indicated how many times each extension appears
+
+One of the important things is that the Github repository is required to have at least three levels of directories.
+
+In practice this has been achieved, but recursively attacking the github endpoint consumed my hourly limit very fast.
+
+I tested mainly with mocked data, then with a [repo with 2 levels](https://github.com/argoproj/argo-site/tree/master) and later [this one](https://github.com/zero-to-mastery/book-tracker) with 4 leves if I am not wrong.
+
+## Extra Goals
+
+As extra points I have put a dropdown of the branches of the repository also the extensions can be sorted alphabetically or the other way around and finally an Input that it will filter them by name.
+
+Some tests have been added and I would have continued refactoring ad infinitum but I think it was a good exercise for now and I really had fun doing it.
+
+Thank you very much for the opportunity Zinklar.
 
 ## Available Scripts
 
@@ -16,55 +32,4 @@ You may also see any lint errors in the console.
 
 ### `npm test`
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
-### `npm run build`
-
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+Launches the test runner in the interactive watch mode, if it give you any errors related with the imports it could be the node version.

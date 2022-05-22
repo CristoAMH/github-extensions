@@ -5,7 +5,7 @@ import {
   setIsFetchingTreeSuccess,
   setIsFetchingTreeError,
 } from '../context/actions';
-import { AZ, ZA } from './constants';
+import { AZ, BLOB, TREE, ZA } from './constants';
 
 export const getRepoTree = async ({ userName, repoName, sha, dispatch }) => {
   // Los archivos tienen un tipo blob si es un directorio es tipo tree
@@ -41,10 +41,10 @@ export const getFileRecount = async ({ url, tree }) => {
       const extension = el.path.split('.').pop();
 
       // Sumamos el valor a nuestro objeto recount
-      if (el.type === 'blob') {
+      if (el.type === BLOB) {
         recount[extension] = recount[extension] ? recount[extension] + 1 : 1;
       }
-      if (el.type === 'tree') {
+      if (el.type === TREE) {
         await iterateTree({ url: el.url });
       }
     }
