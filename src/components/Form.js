@@ -1,10 +1,14 @@
 import React from 'react';
 import BranchSelector from './BranchSelector';
+import Loader from './Loader';
 import PropTypes from 'prop-types';
 import { useBranch } from '../context/branch-context';
+import { useTree } from '../context/tree-context';
 
 const Form = ({ gitRepoUrl, setGitRepoUrl, getTree, userName, repoName }) => {
   const { state: branchState } = useBranch();
+  const { state: treeState } = useTree();
+
   const changeRepoUrl = ({ target: { value } }) => {
     setGitRepoUrl(value);
   };
@@ -29,7 +33,7 @@ const Form = ({ gitRepoUrl, setGitRepoUrl, getTree, userName, repoName }) => {
         onClick={getTree}
         disabled={!userName || !repoName || !branchState.currentBranch?.name}
       >
-        GET TREE RECOUNT
+        {treeState?.isFetchingTree ? <Loader /> : 'GET TREE RECOUNT'}
       </button>
     </div>
   );
