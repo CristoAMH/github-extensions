@@ -36,11 +36,9 @@ export const getFileRecount = async ({ url, tree }) => {
       gitTree = responseJson.tree;
     }
 
-    // Me tocará explicar porque el for each no vale para experar con el await
     for (const el of gitTree) {
       const extension = el.path.split('.').pop();
 
-      // Sumamos el valor a nuestro objeto recount
       if (el.type === BLOB) {
         recount[extension] = recount[extension] ? recount[extension] + 1 : 1;
       }
