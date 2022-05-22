@@ -10,6 +10,7 @@ const defaultBranchState = {
   currentBranch: {},
   allBranches: [],
   isFetchingBranches: false,
+  error: {},
 };
 
 export const BranchContext = createContext(defaultBranchState);

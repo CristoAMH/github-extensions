@@ -2,13 +2,13 @@ import React, { useState, memo, useEffect } from 'react';
 
 import SummaryCell from './SummaryCell';
 import { useTree } from '../context/tree-context';
-import { setRecount } from '../context/actions';
+import { setRecountSortedBy } from '../context/actions';
 import { sortRecount } from '../utils';
 import { AZ, ZA } from '../utils/constants';
 
 const Summary = () => {
   const { state: treeState, dispatch: treeDispatch } = useTree();
-  const { recount } = treeState;
+  const { recount, recountSortedBy } = treeState;
 
   const [filterString, setFilterString] = useState('');
   const [finalRecount, setFinalRecount] = useState(recount);
@@ -30,10 +30,15 @@ const Summary = () => {
     setFinalRecount(newRecount);
   }, [filterString, recount]);
 
-  const setRecountSorted = (recount, sort) => {
-    const newRecount = sortRecount(recount, sort);
-    console.log(newRecount);
-    treeDispatch(setRecount(newRecount));
+  useEffect(() => {
+    if (recountSortedBy) {
+      const newRecount = sortRecount(finalRecount, recountSortedBy);
+      setFinalRecount(newRecount);
+    }
+  }, [recountSortedBy, recount]);
+
+  const setSortedBy = (sort) => {
+    treeDispatch(setRecountSortedBy(sort));
   };
 
   if (!Object.keys(recount).length) return;
@@ -54,14 +59,14 @@ const Summary = () => {
           <label className='self-end pr-2'>Sorted by:</label>
           <button
             className='bg-zinklar-pale hover:bg-gray-100 text-gray-800  mt-2 md:mt-0 px-3 py-3 border  border-gray-400  rounded-md shadow hover:shadow-md text-xs  disabled:bg-gray-300 disabled:opacity-40 mr-1'
-            onClick={() => setRecountSorted(finalRecount, AZ)}
+            onClick={() => setSortedBy(AZ)}
             aria-label='sorted by AZ'
           >
             AZ
           </button>
           <button
             className='bg-zinklar-pale hover:bg-gray-100 text-gray-800  mt-2 md:mt-0 px-3 py-3 border  border-gray-400  rounded-md shadow hover:shadow-md text-xs  disabled:bg-gray-300 disabled:opacity-40 '
-            onClick={() => setRecountSorted(finalRecount, ZA)}
+            onClick={() => setSortedBy(ZA)}
             aria-labelledby='sorted-label'
             aria-label='sorted by ZA'
           >

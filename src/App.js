@@ -30,7 +30,7 @@ function App() {
 
   return (
     <div className='bg'>
-      <div className='flex max-w-4xl mx-auto min-h-screen h-full items-center justify-center md:p-2xl font-roboto'>
+      <div className='flex max-w-4xl mx-auto min-h-screen md:min-w-2xl h-full items-center justify-center md:p-2xl font-roboto'>
         <div className='flex flex-col items-center p-8 bg-slate-200 border rounded-md border-gray-700 h-full'>
           <Form
             gitRepoUrl={gitRepoUrl}

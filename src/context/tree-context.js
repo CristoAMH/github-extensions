@@ -1,6 +1,8 @@
 import { useReducer, createContext, useContext } from 'react';
+import { AZ } from '../utils/constants';
 import {
   SET_RECOUNT,
+  SET_RECOUNT_SORTED_BY,
   TREE_FETCH_ERROR,
   TREE_FETCH_PENDING,
   TREE_FETCH_SUCCESS,
@@ -9,15 +11,9 @@ import {
 const defaultTreeState = {
   tree: [],
   isFetchingTree: false,
-  recount: {
-    yml: 2,
-    luacheckrc: 1,
-    md: 2,
-    txt: 1,
-    lua: 3,
-    vim: 1,
-    toml: 1,
-  },
+  recount: {},
+  recountSortedBy: '',
+  error: {},
 };
 
 export const TreeContext = createContext(defaultTreeState);
@@ -32,6 +28,8 @@ const treeReducer = (state = defaultTreeState, action) => {
       return { ...state, error: { ...action.data } };
     case SET_RECOUNT:
       return { ...state, recount: { ...action.data } };
+    case SET_RECOUNT_SORTED_BY:
+      return { ...state, recountSortedBy: action.data };
     default:
       return state;
   }

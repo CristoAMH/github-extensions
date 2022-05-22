@@ -62,12 +62,17 @@ export const getBranchesFromUrl = async (
   const url = `https://api.github.com/repos/${owner}/${repo}/branches `;
   try {
     dispatch(setIsFetchingBranchesPending());
-    const branches = await fetch(url);
-    const branchesFormatted = await branches.json();
+    const branchesResponse = await fetch(url);
+
+    if (branchesResponse.status === 403) {
+      dispatch(setIsFetchingBranchesError(branchesResponse));
+      return [];
+    }
+    const branchesFormatted = await branchesResponse.json();
 
     return branchesFormatted;
   } catch (e) {
-    dispatch(setIsFetchingBranchesError());
+    dispatch(setIsFetchingBranchesError(e));
   }
 };
 
