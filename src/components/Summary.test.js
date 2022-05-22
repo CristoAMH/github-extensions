@@ -13,7 +13,7 @@ jest.mock('../context/tree-context.js', () => ({
   }),
 }));
 
-test('loads and displays greeting', async () => {
+test('Render and loads the file extensions', async () => {
   render(<Summary />);
   expect(screen.getByText(/js/)).toHaveTextContent('js2');
   expect(screen.getByText(/tsx/)).toHaveTextContent('tsx1');

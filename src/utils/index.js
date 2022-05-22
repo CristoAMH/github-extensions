@@ -5,6 +5,7 @@ import {
   setIsFetchingTreeSuccess,
   setIsFetchingTreeError,
 } from '../context/actions';
+import { AZ, ZA } from './constants';
 
 export const getRepoTree = async ({ userName, repoName, sha, dispatch }) => {
   // Los archivos tienen un tipo blob si es un directorio es tipo tree
@@ -74,4 +75,25 @@ export const isValidGitUrl = (url) => {
   var validGithubUrlRegex =
     /(?:git@|https:\/\/)github.com[:/](?<gitUser>.+?(?=\/))\/(?<gitRepo>.+?(?=\/|$))/;
   return url.match(validGithubUrlRegex);
+};
+
+export const sortRecount = (recount, sort) => {
+  if (!recount) return;
+  if (!sort) return recount;
+  let newRecount;
+  if (AZ) {
+    newRecount = Object.keys(recount).sort();
+  }
+  if (ZA) {
+    newRecount = Object.keys(recount).reverse();
+  }
+  if (newRecount) {
+    return newRecount.reduce(
+      (acc, key) => ({
+        ...acc,
+        [key]: recount[key],
+      }),
+      {}
+    );
+  }
 };
