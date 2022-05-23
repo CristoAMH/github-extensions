@@ -13,11 +13,10 @@ const Summary = () => {
   const [filterString, setFilterString] = useState('');
   const [finalRecount, setFinalRecount] = useState(recount);
 
-  const onChangeFilter = ({ target: { value } }) => {
-    setFilterString(value);
-  };
-
-  useSortRecount(recountSortedBy, finalRecount, setFinalRecount);
+  useSortRecount(recountSortedBy, finalRecount, recount, setFinalRecount);
+  useEffect(() => {
+    setFinalRecount(recount);
+  }, [recount]);
 
   useEffect(() => {
     if (filterString) {
@@ -32,7 +31,11 @@ const Summary = () => {
         );
       setFinalRecount(newRecount);
     }
-  }, [filterString]);
+  }, [filterString, recount]);
+
+  const onChangeFilter = ({ target: { value } }) => {
+    setFilterString(value);
+  };
 
   const setSortedBy = (sort) => {
     treeDispatch(setRecountSortedBy(sort));
@@ -44,7 +47,7 @@ const Summary = () => {
 
   return (
     <div className='w-full pt-10 '>
-      <div className='flex flex-wrap justify-betweefinalRecountn mb-2'>
+      <div className='flex flex-wrap justify-between  mb-2'>
         <input
           value={filterString}
           onChange={onChangeFilter}

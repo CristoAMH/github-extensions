@@ -7,7 +7,7 @@ const useSortRecount = (recountSortedBy, finalRecount, setFinalRecount) => {
       const newRecount = sortRecount(finalRecount, recountSortedBy);
       setFinalRecount(newRecount);
     }
-  }, [recountSortedBy]);
+  }, [recountSortedBy, finalRecount]);
 };
 
 export default useSortRecount;
