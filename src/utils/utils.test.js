@@ -1,8 +1,14 @@
+import { TREE_FETCH_PENDING, TREE_FETCH_SUCCESS } from '../context/actions';
 import { AZ, ZA } from './constants';
-import { getFileRecount, isValidGitUrl, sortRecount } from './index';
+import {
+  getFileRecount,
+  getRepoTree,
+  isValidGitUrl,
+  sortRecount,
+} from './index';
 import { firstTree, secondTree, thirdTree, fourthTree } from './test-utils';
 
-global.fetch = jest.fn();
+global.fetch = jest.fn(() => Promise.resolve({}));
 
 describe('getFileRecount', () => {
   beforeEach(() => {
@@ -82,5 +88,37 @@ describe('sortRecount', () => {
       gitignore: 1,
     };
     expect(sortRecount(recountUnsorted, ZA)).toMatchObject(recountSortedAZ);
+  });
+});
+
+describe('getRepoTree', () => {
+  let userName;
+  let repoName;
+  let sha;
+  let dispatch;
+
+  beforeEach(() => {
+    userName = 'userName';
+    repoName = 'repoName';
+    sha = '3287s32uij2';
+    dispatch = jest.fn();
+  });
+  test('should dispatch the whole tree', async () => {
+    fetch.mockImplementationOnce(() =>
+      Promise.resolve({
+        json: () => Promise.resolve({ tree: firstTree }),
+      })
+    );
+
+    await getRepoTree({ userName, repoName, sha, dispatch });
+
+    expect(dispatch).toBeCalledWith({
+      type: TREE_FETCH_PENDING,
+    });
+
+    expect(dispatch).toBeCalledWith({
+      type: TREE_FETCH_SUCCESS,
+      data: firstTree,
+    });
   });
 });
