@@ -17,38 +17,43 @@ const Summary = () => {
     setFilterString(value);
   };
 
-  useSortRecount(recountSortedBy, recount, finalRecount, setFinalRecount);
+  useSortRecount(recountSortedBy, finalRecount, setFinalRecount);
 
   useEffect(() => {
-    const newRecount = Object.keys(recount)
-      .filter((key) => key.includes(filterString))
-      .reduce(
-        (acc, key) => ({
-          ...acc,
-          [key]: +recount[key],
-        }),
-        {}
-      );
-    setFinalRecount(newRecount);
-  }, [filterString, recount]);
+    if (filterString) {
+      const newRecount = Object.keys(recount)
+        .filter((key) => key.includes(filterString))
+        .reduce(
+          (acc, key) => ({
+            ...acc,
+            [key]: +recount[key],
+          }),
+          {}
+        );
+      setFinalRecount(newRecount);
+    }
+  }, [filterString]);
 
   const setSortedBy = (sort) => {
     treeDispatch(setRecountSortedBy(sort));
   };
 
-  if (!Object.keys(recount).length) return;
+  const getRecountKeys = (recountObject) => Object.keys(recountObject);
+
+  if (!getRecountKeys(recount).length) return;
 
   return (
     <div className='w-full pt-10 '>
-      <div className='flex flex-wrap content-between mb-2'>
+      <div className='flex flex-wrap justify-betweefinalRecountn mb-2'>
         <input
-          id='change-repo-input'
           value={filterString}
           onChange={onChangeFilter}
-          type='text'
           className='bg-slate-50 border  border-gray-300 text-gray-900 text-sm  focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 rounded-md md:max-w-[50%] self-start'
           placeholder='Filter by name'
-          required
+          type='text'
+          aria-label={`Filter by name - Results: ${
+            getRecountKeys(finalRecount)?.length
+          }`}
         />
         <div className='flex'>
           <label className='self-end pr-2'>Sorted by:</label>
@@ -69,7 +74,10 @@ const Summary = () => {
           </button>
         </div>
       </div>
-      <div className='grid grid-cols-3 md:grid-cols-4 gap-2'>
+      <div
+        className='grid grid-cols-3 md:grid-cols-4 gap-2'
+        data-testid='extensions-grid'
+      >
         {Object.keys(finalRecount).map((file) => (
           <SummaryCell key={file} extension={file} value={finalRecount[file]} />
         ))}

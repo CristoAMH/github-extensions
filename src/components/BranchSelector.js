@@ -7,6 +7,7 @@ import { useBranch } from '../context/branch-context';
 const BranchSelector = () => {
   const { state: branchState, dispatch: branchDispatch } = useBranch();
   const { currentBranch, allBranches, isFetchingBranches } = branchState;
+
   const [isOpen, setIsOpen] = useState(false);
   const toggleMenu = () => setIsOpen(!isOpen);
 
