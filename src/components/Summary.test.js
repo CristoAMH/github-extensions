@@ -7,7 +7,7 @@ const customRender = (component) => {
     <treeContext.TreeProvider>{component}</treeContext.TreeProvider>
   );
 };
-describe('Summary tests', () => {
+describe.skip('Summary tests', () => {
   beforeEach(() => {
     treeContext.useTree = jest.fn(() => ({
       state: {
