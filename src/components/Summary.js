@@ -30,6 +30,8 @@ const Summary = () => {
           {}
         );
       setFinalRecount(newRecount);
+    } else {
+      setFinalRecount(recount);
     }
   }, [filterString, recount]);
 
