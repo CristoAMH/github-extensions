@@ -84,10 +84,10 @@ export const sortRecount = (recount, sort) => {
   if (!recount) return;
   if (!sort) return recount;
   let newRecount;
-  if (AZ) {
+  if (sort === AZ) {
     newRecount = Object.keys(recount).sort();
   }
-  if (ZA) {
+  if (sort === ZA) {
     newRecount = Object.keys(recount).reverse();
   }
   if (newRecount) {
