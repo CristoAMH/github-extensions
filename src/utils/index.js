@@ -24,31 +24,27 @@ export const getRepoTree = async ({ userName, repoName, sha, dispatch }) => {
   }
 };
 
-export const getFileRecount = async ({ url, tree }) => {
+const getExtensionsCountFromTree = async ({ url, tree, recount = {} }) => {
+  if (url) {
+    const response = await fetch(url);
+    const responseJson = await response.json();
+    tree = responseJson.tree;
+  }
+
+  for (const el of tree) {
+    const extension = el.path.split('.').pop();
+
+    if (el.type === BLOB)
+      recount[extension] = recount[extension] ? recount[extension] + 1 : 1;
+    if (el.type === TREE)
+      await getExtensionsCountFromTree({ url: el.url, recount });
+  }
+  return recount;
+};
+
+export const getFilesExtensionsCount = async ({ url, tree }) => {
   if (!url && !tree) return;
-  let recount = {};
-
-  const iterateTree = async ({ url, tree }) => {
-    let gitTree = tree;
-    if (url) {
-      const response = await fetch(url);
-      const responseJson = await response.json();
-      gitTree = responseJson.tree;
-    }
-
-    for (const el of gitTree) {
-      const extension = el.path.split('.').pop();
-
-      if (el.type === BLOB) {
-        recount[extension] = recount[extension] ? recount[extension] + 1 : 1;
-      }
-      if (el.type === TREE) {
-        await iterateTree({ url: el.url });
-      }
-    }
-  };
-
-  await iterateTree({ url, tree });
+  const recount = await getExtensionsCountFromTree({ url, tree });
   return recount;
 };
 

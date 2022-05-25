@@ -2,50 +2,50 @@ import React, { useState, memo, useEffect } from 'react';
 
 import SummaryCell from './SummaryCell';
 import { useTree } from '../context/tree-context';
-import { setRecountSortedBy } from '../context/actions';
-import useSortRecount from '../hooks/useSortRecount';
+import { setRecountSortedBy as setCountSortedBy } from '../context/actions';
+import useSortCount from '../hooks/useSortCount';
 import { AZ, ZA } from '../utils/constants';
 
 const Summary = () => {
   const { state: treeState, dispatch: treeDispatch } = useTree();
-  const { recount, recountSortedBy } = treeState;
+  const { count, countSortedBy } = treeState;
 
   const [filterString, setFilterString] = useState('');
-  const [finalRecount, setFinalRecount] = useState(recount);
+  const [finalCount, setFinalCount] = useState(count);
 
-  useSortRecount(recountSortedBy, finalRecount , setFinalRecount);
+  useSortCount(countSortedBy, finalCount, setFinalCount);
   useEffect(() => {
-    setFinalRecount(recount);
-  }, [recount]);
+    setFinalCount(count);
+  }, [count]);
 
   useEffect(() => {
     if (filterString) {
-      const newRecount = Object.keys(recount)
+      const newRecount = Object.keys(count)
         .filter((key) => key.includes(filterString))
         .reduce(
           (acc, key) => ({
             ...acc,
-            [key]: +recount[key],
+            [key]: +count[key],
           }),
           {}
         );
-      setFinalRecount(newRecount);
+      setFinalCount(newRecount);
     } else {
-      setFinalRecount(recount);
+      setFinalCount(count);
     }
-  }, [filterString, recount]);
+  }, [filterString, count]);
 
   const onChangeFilter = ({ target: { value } }) => {
     setFilterString(value);
   };
 
   const setSortedBy = (sort) => {
-    treeDispatch(setRecountSortedBy(sort));
+    treeDispatch(setCountSortedBy(sort));
   };
 
   const getRecountKeys = (recountObject) => Object.keys(recountObject);
 
-  if (!getRecountKeys(recount).length) return;
+  if (!getRecountKeys(count).length) return;
 
   return (
     <div className='w-full pt-10 '>
@@ -57,7 +57,7 @@ const Summary = () => {
           placeholder='Filter by name'
           type='text'
           aria-label={`Filter by name - Results: ${
-            getRecountKeys(finalRecount)?.length
+            getRecountKeys(finalCount)?.length
           }`}
         />
         <div className='flex'>
@@ -83,8 +83,8 @@ const Summary = () => {
         className='grid grid-cols-3 md:grid-cols-4 gap-2'
         data-testid='extensions-grid'
       >
-        {Object.keys(finalRecount).map((file) => (
-          <SummaryCell key={file} extension={file} value={finalRecount[file]} />
+        {Object.keys(finalCount).map((file) => (
+          <SummaryCell key={file} extension={file} value={finalCount[file]} />
         ))}
       </div>
     </div>

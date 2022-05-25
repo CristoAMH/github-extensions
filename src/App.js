@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import Form from './components/Form';
 import Summary from './components/Summary';
 import useGetBranchesFromUrl from './hooks/useGetBranchesFromUrl';
-import useGetFinalRecount from './hooks/useGetFinalRecount';
+import useGetFinalCount from './hooks/useGetFinalCount';
 import useGetUserAndRepoFromUrl from './hooks/useGetUserAndRepoFromUrl';
 import { getRepoTree } from './utils';
 
@@ -19,7 +19,7 @@ function App() {
   const [userName, repoName] = useGetUserAndRepoFromUrl(gitRepoUrl);
 
   useGetBranchesFromUrl(userName, repoName, branchDispatch);
-  useGetFinalRecount(treeState.tree, treeDispatch);
+  useGetFinalCount(treeState.tree, treeDispatch);
 
   const getTree = async () => {
     let sha = currentBranch?.commit?.sha;
