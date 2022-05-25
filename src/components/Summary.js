@@ -13,7 +13,7 @@ const Summary = () => {
   const [filterString, setFilterString] = useState('');
   const [finalRecount, setFinalRecount] = useState(recount);
 
-  useSortRecount(recountSortedBy, finalRecount, recount, setFinalRecount);
+  useSortRecount(recountSortedBy, finalRecount , setFinalRecount);
   useEffect(() => {
     setFinalRecount(recount);
   }, [recount]);
